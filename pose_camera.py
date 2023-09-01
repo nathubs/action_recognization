@@ -14,9 +14,9 @@ from pose_detect.util import Util
 # 有 GPU 就用 GPU，没有就用 CPU
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 print('device:', device)
-model = YOLO('yolov8x-pose.pt')
+model = YOLO('yolov8n-pose.pt')
 model.to(device)
-# 框（rectangle）可视化配置
+# 框（rectangle）可视化配置n
 bbox_color = (150, 0, 0)  # 框的 BGR 颜色
 bbox_thickness = 2  # 框的线宽
 utils = Util()
@@ -136,8 +136,13 @@ def process_frame(img_bgr):
                 riseHandStatus = riseHand
 
             # 最后一个数据处理完毕,开始进行向量角计算
+            # if lineIndex == len(skeleton_map):
+            #     utils.startCaculate(my_callback)
+            
+            # 最后一个数据处理完毕,开始进行向量角计算
             if lineIndex == len(skeleton_map):
-                utils.startCaculate(my_callback)
+                # utils.startCaculate(id_list[closest_idx],time_second,fps,one_frame_callback,one_second_callback)
+                utils.startCaculate(1,1,1,my_callback,None)
 
             # 获取骨架连接颜色
             skeleton_color = skeleton['color']
@@ -220,7 +225,8 @@ def process_frame(img_bgr):
 
 
 # 获取摄像头，传入0表示获取系统默认摄像头
-cap = cv2.VideoCapture(0)
+# cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture("rtsp://192.168.3.45:8554/unicast")
 # 设置分辨率
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1920)
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1080)

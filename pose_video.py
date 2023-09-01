@@ -21,11 +21,11 @@ from pose_detect.util import Util
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 print('device:', device)
 # 载入预训练模型
-# model = YOLO('yolov8n-pose.pt')
+model = YOLO('yolov8n-pose.pt')
 # model = YOLO('yolov8s-pose.pt')
 # model = YOLO('yolov8m-pose.pt')
 # model = YOLO('yolov8l-pose.pt')
-model = YOLO('yolov8x-pose.pt')
+# model = YOLO('yolov8x-pose.pt')
 # model = YOLO('yolov8n-pose.pt')
 # 切换计算设备
 model.to(device)
